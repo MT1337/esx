@@ -55,6 +55,6 @@ files {
 }
 
 dependencies {
-	'async',
+	'mysql-async',
 	'mythic_notify'
 }
