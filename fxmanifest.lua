@@ -21,7 +21,7 @@ shared_scripts {
 	'locale.lua',
 	'locales/*.lua',
 	'config.lua',
-	'config.items.lua',
+	'config.items.lua' -- seems not to be used en
 }
 
 client_scripts {
