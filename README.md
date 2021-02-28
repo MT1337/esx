@@ -8,6 +8,12 @@ It also doesn't come with a inventory since you shouldn't be using that garbage 
 
 For OGs I made a development discord: https://discord.gg/H86eaEPwvK
 
+## Requirements
+
+This order also applies in the startup order.
+- [mysql-async](https://github.com/brouznouf/fivem-mysql-async)
+- [mythic_notify](https://github.com/FlawwsX/mythic_notify)
+
 ## Installation
 
 ### Configuration File
