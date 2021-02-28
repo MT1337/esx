@@ -790,6 +790,11 @@ AddEventHandler('esx:showNotification', function(msg, length, notificationType, 
 	ESX.ShowNotification(msg, length, notificationType, notificationAction)
 end)
 
+RegisterNetEvent('esx:notify')
+AddEventHandler('esx:notify', function(type, msg)
+	exports['mythic_notify']:SendAlert(type, msg)
+end)
+
 RegisterNetEvent('esx:showAdvancedNotification')
 AddEventHandler('esx:showAdvancedNotification', function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
 	ESX.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)

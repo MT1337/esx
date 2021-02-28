@@ -19,6 +19,7 @@ function CreateESXPlayer(userData)
 	self.skin = userData.skin
 	self.status = userData.status
 	self.phoneNumber = userData.phoneNumber
+	self.duty = false
 	self.groups = userData.groups
 
 	for group,v in pairs(self.groups) do
@@ -26,6 +27,20 @@ function CreateESXPlayer(userData)
 	end
 
 	self.triggerEvent = function(eventName, ...) TriggerClientEvent(eventName, self.playerId, ...) end
+
+	self.onDuty = function()
+		return self.duty
+	end
+
+	self.changeDuty = function()
+		if not self.duty then
+			self.duty = true
+			self.notify('inform', 'You are on admin duty!')
+		elseif self.duty then
+			self.duty = false
+			self.notify('error', 'You are not on admin duty anymore!')
+		end
+	end
 
 	self.setCoords = function(_coords)
 		self.updateCoords(_coords)
@@ -550,6 +565,7 @@ function CreateESXPlayer(userData)
 
 	self.getWeapon = function(weaponName) return self.loadout[weaponName] end
 	self.showNotification = function(msg, flash, saveToBrief, hudColorIndex) self.triggerEvent('esx:showNotification', msg, flash, saveToBrief, hudColorIndex) end
+	self.notify = function(msg) self.triggerEvent('esx:notify', type, msg) end
 	self.showHelpNotification = function(msg, thisFrame, beep, duration) self.triggerEvent('esx:showHelpNotification', msg, thisFrame, beep, duration) end
 	self.showAdvancedNotification = function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex) self.triggerEvent('esx:showAdvancedNotification', sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex) end
 	self.showInventoryItemNotification = function(msg, add) self.triggerEvent('esx:showInventoryItemNotification', msg, add) end

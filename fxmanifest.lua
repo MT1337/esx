@@ -1,17 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
---lua54 'yes'
 
 server_scripts {
-	'@async/async.lua',
+	'common/modules/async.lua',
 	'@mysql-async/lib/MySQL.lua',
-
-	'locale.lua',
-	'locales/*.lua',
-
-	'config.lua',
-	'config.weapons.lua',
-	'config.items.lua',
 
 	'server/common.lua',
 	'server/classes/player.lua',
@@ -25,14 +17,14 @@ server_scripts {
 	'common/functions.lua'
 }
 
-client_scripts {
+shared_scripts {
 	'locale.lua',
 	'locales/*.lua',
-
 	'config.lua',
-	'config.weapons.lua',
 	'config.items.lua',
+}
 
+client_scripts {
 	'client/common.lua',
 	'client/entityiter.lua',
 	'client/functions.lua',
@@ -48,9 +40,7 @@ client_scripts {
 	'common/functions.lua'
 }
 
-ui_page {
-	'html/ui.html'
-}
+ui_page	'html/ui.html'
 
 files {
 	'imports.lua',
@@ -65,6 +55,6 @@ files {
 }
 
 dependencies {
-	'mysql-async',
-	'async'
+	'async',
+	'mythic_notify'
 }
