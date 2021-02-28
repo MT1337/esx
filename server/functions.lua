@@ -53,95 +53,99 @@ ESX.RegisterCommand = function(name, group, cb, allowConsole, suggestion)
 			print(('[ESX] [^3WARNING^7] %s'):format(_U('commanderror_console')))
 		else
 			local xPlayer, error = ESX.GetPlayerFromId(playerId), nil
+			if group == 'staff_level_1' or group == 'staff_level_2' or group == 'staff_level_3' or group == 'staff_level_4' or group == 'staff_level_5' and xPlayer.onDuty() or name == 'aduty' and not xPlayer.onDuty() then
 
-			if command.suggestion then
-				if command.suggestion.validate then
-					if #args ~= #command.suggestion.arguments then
-						error = _U('commanderror_argumentmismatch', #args, #command.suggestion.arguments)
+				if command.suggestion then
+					if command.suggestion.validate then
+						if #args ~= #command.suggestion.arguments then
+							error = _U('commanderror_argumentmismatch', #args, #command.suggestion.arguments)
+						end
 					end
-				end
 
-				if not error and command.suggestion.arguments then
-					local newArgs = {}
+					if not error and command.suggestion.arguments then
+						local newArgs = {}
 
-					for k,v in ipairs(command.suggestion.arguments) do
-						if v.type then
-							if v.type == 'number' then
-								local newArg = tonumber(args[k])
+						for k,v in ipairs(command.suggestion.arguments) do
+							if v.type then
+								if v.type == 'number' then
+									local newArg = tonumber(args[k])
 
-								if newArg then
-									newArgs[v.name] = newArg
-								else
-									error = _U('commanderror_argumentmismatch_number', k)
-								end
+									if newArg then
+										newArgs[v.name] = newArg
+									else
+										error = _U('commanderror_argumentmismatch_number', k)
+									end
 
-								if v.min and newArg < v.min then
-									error = _U('commanderror_argumentmismatch_number_min', k)
-								end
+									if v.min and newArg < v.min then
+										error = _U('commanderror_argumentmismatch_number_min', k)
+									end
 
-								if v.max and newArg > v.max then
-									error = _U('commanderror_argumentmismatch_number_max', k)
-								end
-							elseif v.type == 'player' or v.type == 'playerId' then
-								local targetPlayer = tonumber(args[k])
+									if v.max and newArg > v.max then
+										error = _U('commanderror_argumentmismatch_number_max', k)
+									end
+								elseif v.type == 'player' or v.type == 'playerId' then
+									local targetPlayer = tonumber(args[k])
 
-								if args[k] == 'me' then targetPlayer = playerId end
+									if args[k] == 'me' then targetPlayer = playerId end
 
-								if targetPlayer then
-									local xTargetPlayer = ESX.GetPlayerFromId(targetPlayer)
+									if targetPlayer then
+										local xTargetPlayer = ESX.GetPlayerFromId(targetPlayer)
 
-									if xTargetPlayer then
-										if v.type == 'player' then
-											newArgs[v.name] = xTargetPlayer
+										if xTargetPlayer then
+											if v.type == 'player' then
+												newArgs[v.name] = xTargetPlayer
+											else
+												newArgs[v.name] = targetPlayer
+											end
 										else
-											newArgs[v.name] = targetPlayer
+											error = _U('commanderror_invalidplayerid')
 										end
 									else
-										error = _U('commanderror_invalidplayerid')
+										error = _U('commanderror_argumentmismatch_number', k)
 									end
-								else
-									error = _U('commanderror_argumentmismatch_number', k)
-								end
-							elseif v.type == 'string' then
-								newArgs[v.name] = args[k]
-							elseif v.type == 'item' then
-								if ESX.Items[args[k]] then
+								elseif v.type == 'string' then
 									newArgs[v.name] = args[k]
-								else
-									error = _U('commanderror_invaliditem')
+								elseif v.type == 'item' then
+									if ESX.Items[args[k]] then
+										newArgs[v.name] = args[k]
+									else
+										error = _U('commanderror_invaliditem')
+									end
+								elseif v.type == 'weapon' then
+									if ESX.GetWeapon(args[k]) then
+										newArgs[v.name] = string.upper(args[k])
+									else
+										error = _U('commanderror_invalidweapon')
+									end
+								elseif v.type == 'any' then
+									newArgs[v.name] = args[k]
 								end
-							elseif v.type == 'weapon' then
-								if ESX.GetWeapon(args[k]) then
-									newArgs[v.name] = string.upper(args[k])
-								else
-									error = _U('commanderror_invalidweapon')
-								end
-							elseif v.type == 'any' then
-								newArgs[v.name] = args[k]
 							end
+
+							if error then break end
 						end
 
-						if error then break end
+						args = newArgs
 					end
-
-					args = newArgs
 				end
-			end
 
-			if error then
-				if playerId == 0 then
-					print(('[ESX] [^3WARNING^7] %s^7'):format(error))
-				else
-					xPlayer.triggerEvent('chat:addMessage', {args = {error}})
-				end
-			else
-				cb(xPlayer or false, args, function(msg)
+				if error then
 					if playerId == 0 then
-						print(('[ESX] [^3WARNING^7] %s^7'):format(msg))
+						print(('[ESX] [^3WARNING^7] %s^7'):format(error))
 					else
-						xPlayer.triggerEvent('chat:addMessage', {args = {msg}})
+						xPlayer.triggerEvent('chat:addMessage', {args = {error}})
 					end
-				end, playerId)
+				else
+					cb(xPlayer or false, args, function(msg)
+						if playerId == 0 then
+							print(('[ESX] [^3WARNING^7] %s^7'):format(msg))
+						else
+							xPlayer.triggerEvent('chat:addMessage', {args = {msg}})
+						end
+					end, playerId)
+				end
+			elseif group == 'staff_level_1' or group == 'staff_level_2' or group == 'staff_level_3' or group == 'staff_level_4' or group == 'staff_level_5' and not xPlayer.onDuty() then
+				xPlayer.notify('You aren\'t on staff duty!')
 			end
 		end
 	end, true)

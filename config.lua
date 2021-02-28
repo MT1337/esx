@@ -9,9 +9,11 @@ Config.Accounts = {
 }
 
 Config.StartingAccountMoney = {bank = 5000, money = 1000}
-Config.MaxWeight = 50   -- the max inventory weight without backpack
+Config.MaxWeight = 50
 Config.PaycheckInterval = 7 * 60000
 Config.EnableDebug = false
+
+Config.FetchFromConfig = true
 
 Config.IncompatibleResourcesToStop = {
 	['essentialmode'] = 'ES for short, the performance heavy RP framework no one uses - and source for the random unwa' ..

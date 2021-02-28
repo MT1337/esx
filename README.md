@@ -42,3 +42,9 @@ add_principal group.staff_level_4 group.staff_level_3
 add_principal group.staff_level_5 group.staff_level_4
 add_principal system.console group.staff_level_5
 ```
+
+```
+For this branch to fully fetch items, jobs and grades from config, you have to change fetching for items from mysql query to getting esx's config in esx_addoninventory and esx_society for jobs and esx_jobs and esx_joblisting
+
+Gonna make a dynamic system for that later
+```

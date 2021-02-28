@@ -35,10 +35,10 @@ function CreateESXPlayer(userData)
 	self.changeDuty = function()
 		if not self.duty then
 			self.duty = true
-			self.notify('inform', 'You are on admin duty!')
+			self.notify('inform', 'You\'re on staff duty now!')
 		elseif self.duty then
 			self.duty = false
-			self.notify('error', 'You are not on admin duty anymore!')
+			self.notify('error', 'You aren\'t on staff duty anymore!')
 		end
 	end
 
