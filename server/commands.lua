@@ -24,6 +24,11 @@ end, false, {help = _U('command_car'), validate = false, arguments = {
 	{name = 'car', help = _U('command_car_car'), type = 'any'}
 }})
 
+ESX.RegisterCommand('aduty', 'staff_level_1', function(xPlayer, args, showError)
+	xPlayer.changeDuty()
+end, false, {help = 'Get on/off duty', validate = false
+}})
+
 ESX.RegisterCommand({'cardel', 'dv'}, 'staff_level_2', function(xPlayer, args, showError)
 	xPlayer.triggerEvent('esx:deleteVehicle', args.radius)
 end, false, {help = _U('command_cardel'), validate = false, arguments = {
