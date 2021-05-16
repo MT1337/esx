@@ -42,7 +42,7 @@ Shared.Jobs = {
 }
 
 Shared.Grades = {
-	[1] = {jobName = 'police', gradeName = 'recrue', gradeLabel = 'Not a Newbie' gradeNum = 1, salary = 250, skin_male = '{}', skin_female = '{}'}, -- gradeNum starts at 0, but the previously registered job and its main grade is set to `0`
+	[1] = {jobName = 'police', gradeName = 'recrue', gradeLabel = 'Not a Newbie', gradeNum = 1, salary = 250, skin_male = '{}', skin_female = '{}'}, -- gradeNum starts at 0, but the previously registered job and its main grade is set to `0`
 }
 
 -- Weapons from config.weapons.lua --
